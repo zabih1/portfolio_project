@@ -106,6 +106,10 @@ a {
     }
 }
 
+.hero-section .btn {
+    z-index: 1000; /* Ensure buttons are above any overlays */
+}
+
 /* ================= ABOUT SECTION ================= */
 .profile-image {
     width: 250px;
@@ -195,90 +199,171 @@ a {
     object-fit: cover;
 }
 
-/* ================= CONTACT SECTION ================= */
-/* ============ CONTACT PAGE STYLES ============ */
-.contact-info {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.contact-info i {
-    font-size: 24px;
-    color: var(--primary-color);
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(13, 110, 253, 0.1);
-    border-radius: 50%;
-}
-
-.social-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--light-color);
-    color: var(--primary-color);
-    margin-right: 10px;
-    font-size: 18px;
-    transition: var(--transition);
-}
-
-.social-icon:hover {
-    background-color: var(--primary-color);
-    color: white;
-    transform: translateY(-3px);
-}
-
-.form-floating label {
-    color: var(--gray-color);
-    transition: var(--transition);
-}
-
-.form-floating .form-control:focus + label {
-    color: var(--primary-color);
-}
-
-/* Responsive */
+/* ================= MOBILE STYLES FOR CONTACT PAGE ================= */
 @media (max-width: 768px) {
-    .contact-info {
-        text-align: center;
+    /* Reduce section padding for mobile devices */
+    #contact {
+        padding: 2rem 1rem;
     }
-
-    .contact-info i {
-        margin: 0 auto 10px;
+    
+    /* Adjust container padding for better spacing */
+    #contact .container {
+        padding: 0 15px;
+    }
+    
+    /* Scale down heading sizes */
+    #contact h2 {
+        font-size: 1.75rem;
+    }
+    #contact .contact-info h4,
+    #contact .contact-form-container h4 {
+        font-size: 1.5rem;
+    }
+    
+    /* Add spacing between stacked sections */
+    #contact .contact-info,
+    #contact .contact-form-container {
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Tweak font sizes within contact info items */
+    .contact-info-item i {
+        font-size: 1.5rem;
+    }
+    .contact-info-item h5 {
+        font-size: 1.1rem;
+    }
+    .contact-info-item p {
+        font-size: 0.9rem;
+    }
+    
+    /* Adjust form field padding and font size */
+    .contact-form-container .form-control {
+        font-size: 0.9rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    /* Make the submit button slightly smaller */
+    .contact-form-container button {
+        font-size: 1rem;
+        padding: 0.75rem;
     }
 }
-
-
 
 /* ================= RESPONSIVE STYLES ================= */
-
 @media (max-width: 768px) {
     .sidebar {
         position: fixed;
         top: 0;
-        left: -250px; /* Adjust the width as needed */
+        left: 0;
         width: 250px;
         height: 100vh;
+        transform: translateX(-250px); 
         transition: transform 0.3s ease;
     }
-
     .sidebar.collapse.show {
-        transform: translateX(250px);
+        transform: translateX(0); 
     }
+}
 
-    .main {
-        margin-left: 0;
-        transition: margin-left 0.3s ease;
+.navbar-toggler {
+    background-color: var(--primary-color); /* Ensure a visible background color */
+    border: none; /* Optional: Remove border for a cleaner look */
+    z-index: 1100; /* Ensure it appears above the sidebar */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    filter: invert(1); /* Ensures visibility on darker backgrounds */
+}
+
+.sidebar {
+    z-index: 1050; /* Ensure it appears above other content */
+}
+
+/* Improved Toggle Button Styles */
+.mobile-menu-toggle {
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    z-index: 1100;
+    padding: 0.75rem;
+    background-color: rgba(196, 207, 224, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: var(--transition);
+}
+
+.mobile-menu-toggle:hover {
+    background-color: white;
+    transform: scale(1.1);
+}
+
+.toggle-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff4757;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* Sidebar Close Button */
+.sidebar-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+}
+
+.sidebar-close .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+    transition: var(--transition);
+}
+
+.sidebar-close .btn-close:hover {
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+/* Backdrop Effect */
+.sidebar::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar.show::after {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Hide mobile toggle on desktop */
+@media (min-width: 769px) {
+    .mobile-menu-toggle {
+        display: none !important;
     }
-
-    .sidebar.collapse.show + .main {
-        margin-left: 250px;
+    
+    .sidebar {
+        transform: none !important;
+        position: relative !important;
+        height: auto !important;
+    }
+    
+    .sidebar.collapse {
+        display: block !important;
+        height: auto !important;
     }
 }

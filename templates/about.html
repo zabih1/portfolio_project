@@ -7,7 +7,7 @@
         <h2 class="text-center mb-5">About Me</h2>
 
         <div class="row align-items-center">
-            <div class="col-md-4 text-center">
+            <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
                 <div class="profile-container">
                     {% if profile.profile_image %}
                         <img src="{{ profile.profile_image.url }}" alt="Profile Picture" class="profile-image">
@@ -17,17 +17,17 @@
                 </div>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-12 col-md-8">
                 <h3>Hello! I'm <span class="text-primary">{{ profile.name }}</span></h3>
                 <p class="lead">{{ profile.title }} based in {{ profile.location }}.</p>
                 <p>{{ profile.bio }}</p>
 
                 <div class="row mt-4">
-                    <div class="col-md-6">
+                    <div class="col-12 col-md-6">
                         <p><strong><i class="fas fa-envelope me-2 text-primary"></i> Email:</strong> {{ profile.email }}</p>
                         <p><strong><i class="fas fa-phone me-2 text-primary"></i> Phone:</strong> {{ profile.phone }}</p>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-12 col-md-6">
                         <p><strong><i class="fas fa-map-marker-alt me-2 text-primary"></i> Location:</strong> {{ profile.location }}</p>
                         <p><strong><i class="fas fa-calendar me-2 text-primary"></i> Experience:</strong> {{ profile.experience_years }}+ Years</p>
                     </div>
