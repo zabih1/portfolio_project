@@ -1,0 +1,40 @@
+<!-- about.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- About Section -->
+<section id="about" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">About Me</h2>
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center mb-4 mb-md-0">
+                {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}" alt="Profile Picture" class="profile-image">
+                {% else %}
+                    <img src="{% static 'images/default-profile.jpg' %}" alt="Profile Picture" class="profile-image">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <h3>Hello! I'm {{ profile.name }}</h3>
+                <p class="lead">{{ profile.title }} based in {{ profile.location }}.</p>
+                <p>{{ profile.bio }}</p>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <p><strong><i class="fas fa-envelope me-2"></i> Email:</strong> {{ profile.email }}</p>
+                        <p><strong><i class="fas fa-phone me-2"></i> Phone:</strong> {{ profile.phone }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong><i class="fas fa-map-marker-alt me-2"></i> Location:</strong> {{ profile.location }}</p>
+                        <p><strong><i class="fas fa-calendar me-2"></i> Experience:</strong> {{ profile.experience_years }}+ Years</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="#" class="btn btn-primary me-3">Download CV</a>
+                    <a href="{% url 'contact' %}" class="btn btn-outline-primary">Contact Me</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

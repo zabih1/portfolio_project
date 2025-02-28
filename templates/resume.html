@@ -1,0 +1,45 @@
+<!-- resume.html  -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<section id="resume" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">My Resume</h2>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="mb-4"><i class="fas fa-graduation-cap me-2"></i> Education</h3>
+
+                <div class="timeline">
+                    {% for education in education_list %}
+                    <div class="timeline-item">
+                        <h4>{{ education.degree }}</h4>
+                        <p class="text-muted">{{ education.institution }} | {{ education.time_period }}</p>
+                        <p>{{ education.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <h3 class="mb-4"><i class="fas fa-briefcase me-2"></i> Experience</h3>
+
+                <div class="timeline">
+                    {% for experience in experience_list %}
+                    <div class="timeline-item">
+                        <h4>{{ experience.position }}</h4>
+                        <p class="text-muted">{{ experience.company }} | {{ experience.time_period }}</p>
+                        <p>{{ experience.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="#" class="btn btn-primary btn-lg">Download Full Resume</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

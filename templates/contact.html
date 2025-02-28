@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Contact Section -->
+<section id="contact" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Get In Touch</h2>
+        
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="contact-info">
+                    <h4 class="mb-4">Contact Information</h4>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h5 class="mb-0">Location</h5>
+                            <p class="mb-0">{{ profile.location }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h5 class="mb-0">Email</h5>
+                            <p class="mb-0">{{ profile.email }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h5 class="mb-0">Phone</h5>
+                            <p class="mb-0">{{ profile.phone }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <div class="social-icons-alt">
+                            {% if profile.linkedin %}
+                                <a href="{{ profile.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            {% endif %}
+                            {% if profile.github %}
+                                <a href="{{ profile.github }}" target="_blank"><i class="fab fa-github"></i></a>
+                            {% endif %}
+                            {% if profile.twitter %}
+                                <a href="{{ profile.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-7">
+                <div class="contact-form-container">
+                    <h4 class="mb-4">Send Message</h4>
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form action="{% url 'send_message' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+                        <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn btn-primary btn-lg mt-3">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

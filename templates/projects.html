@@ -1,0 +1,80 @@
+<!-- projects.html  -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Projects Section -->
+<section id="projects" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Featured Projects</h2>
+
+        <div class="row g-4">
+            {% for project in featured_projects %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card project-card h-100">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-project.jpg' %}" class="card-img-top" alt="{{ project.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        <div class="d-flex flex-wrap">
+                            {% for tech in project.technologies.all %}
+                            <span class="badge bg-primary me-1 mb-1">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <div class="d-flex justify-content-between">
+                            {% if project.demo_url %}
+                            <a href="{{ project.demo_url }}" target="_blank" class="btn btn-sm btn-outline-primary">View Demo</a>
+                            {% endif %}
+                            {% if project.source_code_url %}
+                            <a href="{{ project.source_code_url }}" target="_blank" class="btn btn-sm btn-primary">Source Code</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if all_projects.count > featured_projects.count %}
+        <div class="text-center mt-5">
+            <button id="view-all-projects" class="btn btn-primary">View All Projects</button>
+        </div>
+
+        <div id="all-projects-container" class="row g-4 mt-4" style="display: none;">
+            {% for project in all_projects %}
+            {% if not project.featured %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card project-card h-100">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                    {% else %}
+                    <img src="{% static 'images/default-project.jpg' %}" class="card-img-top" alt="{{ project.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        <div class="d-flex flex-wrap">
+                            {% for tech in project.technologies.all %}
+                            <span class="badge bg-primary me-1 mb-1">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <div class="d-flex justify-content-between">
+                            {% if project.demo_url %}
+                            <a href="{{ project.demo_url }}" target="_blank" class="btn btn-sm btn-outline-primary">View Demo</a>
+                            {% endif %}
+                            {% if project.source_code_url %}
+                            <a href="{{ project.source_code_url }}" target="_blank" class="btn btn-sm btn-primary">Source Code</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
