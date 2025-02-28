@@ -1,6 +1,7 @@
 <!-- projects.html  -->
 
 {% extends 'base.html' %}
+{% load static %} 
 
 {% block content %}
 <!-- Projects Section -->
@@ -15,7 +16,7 @@
                     {% if project.image %}
                     <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
                     {% else %}
-                    <img src="{% static 'images/default-project.jpg' %}" class="card-img-top" alt="{{ project.title }}">
+                    <img src="{% static 'images/project.jpg' %}" class="card-img-top" alt="{{ project.title }}">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ project.title }}</h5>
@@ -78,3 +79,9 @@
                 </div>
             </div>
             {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -73,10 +73,11 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--primary-color), #3a0ca3);
+    /* background: linear-gradient(135deg, var(--primary-color), #3a0ca3); */
     color: white;
     position: relative;
     overflow: hidden;
+    background:  url('../images/background.jpg');
 }
 
 .hero-section::before {
@@ -226,21 +227,28 @@ a {
     border-color: var(--primary-color);
 }
 
+
 /* ================= RESPONSIVE STYLES ================= */
 @media (max-width: 768px) {
     .sidebar {
-        position: static !important;
-        height: auto;
-        width: 100%;
+        position: fixed;
+        top: 0;
+        left: -250px; /* Adjust the width as needed */
+        width: 250px;
+        height: 100vh;
+        transition: transform 0.3s ease;
     }
-    
-    .hero-section {
-        height: auto;
-        padding: 100px 0;
+
+    .sidebar.collapse.show {
+        transform: translateX(250px);
     }
-    
-    .profile-image {
-        width: 200px;
-        height: 200px;
+
+    .main {
+        margin-left: 0;
+        transition: margin-left 0.3s ease;
+    }
+
+    .sidebar.collapse.show + .main {
+        margin-left: 250px;
     }
 }
