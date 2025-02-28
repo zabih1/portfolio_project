@@ -1,82 +1,80 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<!-- Contact Section -->
 <section id="contact" class="py-5">
     <div class="container">
-        <h2 class="text-center mb-5">Get In Touch</h2>
-        
+        <h2 class="text-center mb-4">Get In Touch</h2>
+
         <div class="row">
             <div class="col-lg-5">
-                <div class="contact-info">
+                <div class="contact-info p-4 rounded bg-light">
                     <h4 class="mb-4">Contact Information</h4>
-                    
-                    <div class="contact-info-item">
-                        <i class="fas fa-map-marker-alt"></i>
+
+                    <div class="contact-info-item d-flex align-items-center mb-3">
+                        <i class="fas fa-map-marker-alt text-primary fs-4 me-3"></i>
                         <div>
-                            <h5 class="mb-0">Location</h5>
-                            <p class="mb-0">{{ profile.location }}</p>
+                            <h5 class="mb-1">Location</h5>
+                            <p class="text-muted">{{ profile.location }}</p>
                         </div>
                     </div>
-                    
-                    <div class="contact-info-item">
-                        <i class="fas fa-envelope"></i>
+
+                    <div class="contact-info-item d-flex align-items-center mb-3">
+                        <i class="fas fa-envelope text-primary fs-4 me-3"></i>
                         <div>
-                            <h5 class="mb-0">Email</h5>
-                            <p class="mb-0">{{ profile.email }}</p>
+                            <h5 class="mb-1">Email</h5>
+                            <p class="text-muted">{{ profile.email }}</p>
                         </div>
                     </div>
-                    
-                    <div class="contact-info-item">
-                        <i class="fas fa-phone"></i>
+
+                    <div class="contact-info-item d-flex align-items-center">
+                        <i class="fas fa-phone text-primary fs-4 me-3"></i>
                         <div>
-                            <h5 class="mb-0">Phone</h5>
-                            <p class="mb-0">{{ profile.phone }}</p>
+                            <h5 class="mb-1">Phone</h5>
+                            <p class="text-muted">{{ profile.phone }}</p>
                         </div>
                     </div>
-                    
-                    <div class="mt-4">
-                        <div class="social-icons-alt">
-                            {% if profile.linkedin %}
-                                <a href="{{ profile.linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                            {% endif %}
-                            {% if profile.github %}
-                                <a href="{{ profile.github }}" target="_blank"><i class="fab fa-github"></i></a>
-                            {% endif %}
-                            {% if profile.twitter %}
-                                <a href="{{ profile.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
-                            {% endif %}
-                        </div>
+
+                    <div class="mt-4 d-flex gap-3">
+                        {% if profile.linkedin %}
+                            <a href="{{ profile.linkedin }}" class="text-dark fs-4"><i class="fab fa-linkedin"></i></a>
+                        {% endif %}
+                        {% if profile.github %}
+                            <a href="{{ profile.github }}" class="text-dark fs-4"><i class="fab fa-github"></i></a>
+                        {% endif %}
+                        {% if profile.twitter %}
+                            <a href="{{ profile.twitter }}" class="text-dark fs-4"><i class="fab fa-twitter"></i></a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-7">
-                <div class="contact-form-container">
-                    <h4 class="mb-4">Send Message</h4>
-                    
+                <div class="contact-form-container p-4 rounded shadow">
+                    <h4 class="mb-4">Send a Message</h4>
+
                     {% if messages %}
                         {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
                                 {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         {% endfor %}
                     {% endif %}
-                    
+
                     <form action="{% url 'send_message' %}" method="post">
                         {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="email" name="email" class="form-control" placeholder="Your Email" required>
-                            </div>
+                        <div class="mb-3">
+                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                         </div>
-                        <input type="text" name="subject" class="form-control" placeholder="Subject" required>
-                        <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
-                        <button type="submit" class="btn btn-primary btn-lg mt-3">Send Message</button>
+                        <div class="mb-3">
+                            <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Send Message</button>
                     </form>
                 </div>
             </div>
