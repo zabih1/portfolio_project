@@ -1,17 +1,19 @@
-<!-- home.html -->
-
 {% extends 'base.html' %}
 
 {% block content %}
 <!-- Hero Section -->
 <section id="home" class="hero-section">
-    <div class="container text-center">
+    <div class="overlay"></div>
+    <div class="container text-center content-wrapper">
         <h1 class="display-4 fw-bold mb-4 fade-in">{{ profile.name }}</h1>
         <p class="lead mb-5 fade-in">{{ profile.title }}</p>
         <div class="d-flex justify-content-center mb-5 fade-in">
             <a href="{% url 'contact' %}" class="btn btn-primary btn-lg me-3">Hire Me</a>
             <a href="{% url 'projects' %}" class="btn btn-outline-light btn-lg">My Work</a>
         </div>
+        <a href="#about" class="scroll-indicator fade-in">
+            <i class="bi bi-chevron-down"></i>
+        </a>
     </div>
 </section>
 {% endblock %}
