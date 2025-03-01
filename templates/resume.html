@@ -5,7 +5,7 @@
 {% block content %}
 <section id="resume" class="py-5">
     <div class="container">
-        <h2 class="text-center mb-5">My Resume</h2>
+        <h2 class="text-center mb-5 fw-bold">My Resume</h2>
 
         <div class="row">
             <div class="col-lg-6">
@@ -38,8 +38,62 @@
         </div>
 
         <div class="text-center mt-5">
-            <a href="#" class="btn btn-primary btn-lg">Download Full Resume</a>
+           
+            <a href="{{ profile.cv_file.url }}" class="btn btn-primary px-4 py-2" download>
+                <i class="fas fa-download me-2"></i>Download CV
+            </a>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_css %}
+
+<style>
+    /* TIMELINE STYLES */
+    .timeline {
+        position: relative;
+        padding-left: 40px; /* Adjusted spacing */
+        border-left: 3px solid #4e73df; /* Matching primary color */
+    }
+
+    .timeline-item {
+        position: relative;
+        padding-bottom: 30px;
+        padding-left: 20px;
+    }
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -49px; /* Adjusted for better alignment */
+        top: 5px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: linear-gradient(45deg, #4e73df, #36b9cc); /* Gradient from About Page */
+        z-index: 1;
+        border: 3px solid white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* HEADINGS */
+    h3 {
+        color: #4e73df; /* Title color matching About Me */
+        font-weight: bold;
+    }
+
+    /* BUTTON STYLING */
+    .btn-primary {
+        background: linear-gradient(45deg, #4e73df, #36b9cc);
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary:hover {
+        box-shadow: 0px 4px 10px rgba(54, 185, 204, 0.5);
+        transform: scale(1.05);
+    }
+</style>
+
 {% endblock %}

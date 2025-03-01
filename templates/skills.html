@@ -3,63 +3,158 @@
 
 {% block content %}
 <!-- Skills Section -->
-<section id="skills" class="py-5">
+<section id="skills" class="py-5 bg-light" data-aos="fade-up">
     <div class="container">
-        <h2 class="text-center mb-5">My Skills</h2>
+        <h2 class="text-center mb-5 fw-bold">My Skills</h2>
         <div class="row">
+            <!-- Technical Skills -->
             <div class="col-md-6">
-                <h4 class="mb-4">Technical Skills</h4>
+                <h4 class="mb-4"><i class="fas fa-code text-primary me-2"></i>Technical Skills</h4>
                 {% if technical_skills %}
                     {% for skill in technical_skills %}
                     <div class="mb-3">
                         <div class="d-flex justify-content-between">
-                            <span>{{ skill.name }}</span>
-                            <span>{{ skill.proficiency }}%</span>
+                            <span class="fw-semibold" aria-label="Skill Name">{{ skill.name }}</span>
+                            <span class="text-muted">{{ skill.proficiency }}%</span>
                         </div>
                         <div class="progress skill-progress">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ skill.proficiency }}%"
-                                aria-valuenow="{{ skill.proficiency }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-primary progress-bar-animated" role="progressbar" 
+                                style="width: 0%;" 
+                                data-width="{{ skill.proficiency }}"
+                                aria-valuenow="{{ skill.proficiency }}" 
+                                aria-valuemin="0" 
+                                aria-valuemax="100">
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
                 {% else %}
-                    <p>No technical skills available.</p>
+                    <p class="text-muted">No technical skills available.</p>
                 {% endif %}
             </div>
 
+            <!-- Professional Skills -->
             <div class="col-md-6">
-                <h4 class="mb-4">Professional Skills</h4>
+                <h4 class="mb-4"><i class="fas fa-briefcase text-primary me-2"></i>Professional Skills</h4>
                 {% if professional_skills %}
                     {% for skill in professional_skills %}
                     <div class="mb-3">
                         <div class="d-flex justify-content-between">
-                            <span>{{ skill.name }}</span>
-                            <span>{{ skill.proficiency }}%</span>
+                            <span class="fw-semibold" aria-label="Skill Name">{{ skill.name }}</span>
+                            <span class="text-muted">{{ skill.proficiency }}%</span>
                         </div>
                         <div class="progress skill-progress">
-                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{ skill.proficiency }}%"
-                                aria-valuenow="{{ skill.proficiency }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-primary progress-bar-animated" role="progressbar" 
+                                style="width: 0%;" 
+                                data-width="{{ skill.proficiency }}"
+                                aria-valuenow="{{ skill.proficiency }}" 
+                                aria-valuemin="0" 
+                                aria-valuemax="100">
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
                 {% else %}
-                    <p>No professional skills available.</p>
+                    <p class="text-muted">No professional skills available.</p>
                 {% endif %}
             </div>
         </div>
 
+        <!-- Technologies Section -->
         <div class="mt-5">
-            <h4 class="mb-4 text-center">Technologies I Work With</h4>
-            <div class="d-flex flex-wrap justify-content-center">
+            <h4 class="mb-4 text-center"><i class="fas fa-tools text-primary me-2"></i>Technologies I Work With</h4>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
                 {% if technologies %}
                     {% for tech in technologies %}
                     <span class="skills-item">{{ tech.name }}</span>
                     {% endfor %}
                 {% else %}
-                    <p>No technologies available.</p>
+                    <p class="text-muted">No technologies available.</p>
                 {% endif %}
             </div>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ======== SKILLS SECTION ======== */
+    #skills {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .progress {
+        height: 10px;
+        border-radius: 5px;
+        background-color: #e9ecef;
+    }
+
+    .progress-bar {
+        border-radius: 5px;
+        transition: width 1.5s ease-in-out, background-color 0.5s ease-in-out;
+    }
+
+    /* ======== TECHNOLOGIES ======== */
+    .skills-item {
+        background: linear-gradient(to right, #4e73df, #36b9cc);
+        color: white;
+        font-size: 14px;
+        padding: 10px 18px;
+        border-radius: 20px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .skills-item:hover {
+        background: linear-gradient(to right, #36b9cc, #4e73df);
+        transform: translateY(-2px);
+    }
+
+    /* ======== RESPONSIVE DESIGN ======== */
+    @media (max-width: 768px) {
+        .progress {
+            height: 8px;
+        }
+
+        .skills-item {
+            font-size: 12px;
+            padding: 6px 12px;
+        }
+    }
+
+    /* ======== ANIMATIONS ======== */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<!-- AOS (Animate On Scroll) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let progressBars = document.querySelectorAll(".progress-bar");
+
+        function animateProgressBars() {
+            progressBars.forEach(bar => {
+                let width = bar.getAttribute("data-width");
+                bar.style.width = width + "%";
+            });
+        }
+
+        // Trigger animation when page loads
+        setTimeout(animateProgressBars, 500);
+    });
+</script>
+
+
 {% endblock %}

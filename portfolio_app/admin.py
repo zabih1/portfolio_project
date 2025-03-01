@@ -4,6 +4,10 @@ from .models import Profile, Skill, Technology, Education, Experience, Project, 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('name', 'title', 'email', 'location')
+    fields = ('name', 'title', 'profile_image', 'logo_image', 'email', 'phone', 
+              'location', 'bio', 'experience_years', 'cv_file', 
+              'linkedin', 'github', 'twitter')  # Include cv_file
+
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):

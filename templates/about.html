@@ -1,32 +1,34 @@
 {% extends 'base.html' %}
-{% load static %}  
+{% load static %}
 
 {% block content %}
 <section id="about" class="py-5 bg-light">
-    
     <div class="container">
-        <h2 class="text-center mb-5">About Me</h2>
+        <h2 class="text-center mb-5 fw-bold">About Me</h2>
 
         <div class="row align-items-center">
+            <!-- Profile Image Section -->
             <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
                 <div class="profile-container">
                     {% if profile.profile_image %}
-                        <img src="{{ profile.profile_image.url }}" alt="Profile Picture" class="profile-image">
+                        <img src="{{ profile.profile_image.url }}" alt="Profile Picture" class="profile-image shadow-lg">
                     {% else %}
-                        <img src="{% static 'images/default-profile.jpg' %}" alt="Profile Picture" class="profile-image">
+                        <img src="{% static 'images/default-profile.jpg' %}" alt="Profile Picture" class="profile-image shadow-lg">
                     {% endif %}
                 </div>
             </div>
 
+            <!-- Profile Details Section -->
             <div class="col-12 col-md-8">
-                <h3>Hello! I'm <span class="text-primary">{{ profile.name }}</span></h3>
-                <p class="lead">{{ profile.title }} based in {{ profile.location }}.</p>
-                <p>{{ profile.bio }}</p>
+                <h3 class="fw-bold">Hello! I'm <span class="text-primary">{{ profile.name }}</span></h3>
+                <p class="lead text-muted">{{ profile.title }} based in {{ profile.location }}.</p>
+                <p class="text-secondary">{{ profile.bio }}</p>
 
+                <!-- Contact Information -->
                 <div class="row mt-4">
                     <div class="col-12 col-md-6">
-                        <p><strong><i class="fas fa-envelope me-2 text-primary"></i> Email:</strong> {{ profile.email }}</p>
-                        <p><strong><i class="fas fa-phone me-2 text-primary"></i> Phone:</strong> {{ profile.phone }}</p>
+                        <p><strong><i class="fas fa-envelope me-2 text-primary"></i> Email:</strong> <a href="mailto:{{ profile.email }}" class="text-dark text-decoration-none">{{ profile.email }}</a></p>
+                        <p><strong><i class="fas fa-phone me-2 text-primary"></i> Phone:</strong> <a href="tel:{{ profile.phone }}" class="text-dark text-decoration-none">{{ profile.phone }}</a></p>
                     </div>
                     <div class="col-12 col-md-6">
                         <p><strong><i class="fas fa-map-marker-alt me-2 text-primary"></i> Location:</strong> {{ profile.location }}</p>
@@ -34,12 +36,131 @@
                     </div>
                 </div>
 
-                <div class="mt-4">
-                    <a href="#" class="btn btn-primary me-3"><i class="fas fa-download me-2"></i>Download CV</a>
-                    <a href="{% url 'contact' %}" class="btn btn-outline-primary"><i class="fas fa-paper-plane me-2"></i>Contact Me</a>
+                <!-- CV Download and Contact Me Buttons -->
+                <div class="mt-4 d-flex flex-wrap gap-3">
+                    {% if profile.cv_file %}
+                        <a href="{{ profile.cv_file.url }}" class="btn btn-primary px-4 py-2" download>
+                            <i class="fas fa-download me-2"></i>Download CV
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'contact' %}" class="btn btn-outline-primary px-4 py-2">
+                        <i class="fas fa-paper-plane me-2"></i>Contact Me
+                    </a>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="mt-4 d-flex flex-wrap gap-3">
+                    {% if profile.linkedin %}
+                        <a href="{{ profile.linkedin }}" target="_blank" class="btn btn-outline-dark">
+                            <i class="fab fa-linkedin me-2"></i> LinkedIn
+                        </a>
+                    {% endif %}
+                    {% if profile.github %}
+                        <a href="{{ profile.github }}" target="_blank" class="btn btn-outline-dark">
+                            <i class="fab fa-github me-2"></i> GitHub
+                        </a>
+                    {% endif %}
+                    {% if profile.twitter %}
+                        <a href="{{ profile.twitter }}" target="_blank" class="btn btn-outline-dark">
+                            <i class="fab fa-twitter me-2"></i> Twitter
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ========== ABOUT SECTION ========== */
+    #about {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .profile-container {
+        width: 200px;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 50%;
+        border: 5px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .profile-image {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .profile-image:hover {
+        transform: scale(1.05);
+    }
+
+    /* ========== BUTTON STYLES ========== */
+    .btn {
+        transition: all 0.3s ease-in-out;
+        font-weight: 500;
+    }
+
+    .btn-primary {
+        background: linear-gradient(45deg, #4e73df, #36b9cc);
+        border-color: transparent;
+    }
+
+    .btn-outline-primary:hover {
+        background: #36b9cc;
+        color: white;
+    }
+
+    /* ========== SOCIAL MEDIA BUTTONS ========== */
+    .btn-outline-dark {
+        border: 2px solid rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-outline-dark:hover {
+        background: black;
+        color: white;
+    }
+
+    /* ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 768px) {
+        .profile-container {
+            width: 150px;
+            height: 150px;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .d-flex {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
 {% endblock %}
