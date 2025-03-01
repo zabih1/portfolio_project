@@ -49,22 +49,54 @@ a {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Adjust the vertical position of social icons in sidebar */
+.sidebar .mt-3.px-3 {
+    margin-top: -0rem !important; /* Move the container up */
+}
+
+/* Make sure the icons still appear in a single row */
+.sidebar .social-icons {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    margin-bottom: 1rem !important; /* Add some bottom margin */
+}
+
 .social-icons a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: white;
-    margin: 0 0.5rem;
-    transition: var(--transition);
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    margin: 0 0.2rem !important;
+    transition: all 0.3s ease !important;
+    flex-shrink: 0 !important;
 }
 
 .social-icons a:hover {
-    background-color: var(--primary-color);
-    transform: translateY(-3px);
+    background-color: #0d6efd !important;
+    transform: translateY(-3px) !important;
+}
+
+/* Make sure these styles override any page-specific styles */
+@media (max-width: 768px) {
+    .sidebar .social-icons {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        justify-content: center !important;
+    }
+    
+    /* This ensures that the social icons container stays horizontal */
+    .sidebar .d-flex.justify-content-center {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+    }
 }
 
 
