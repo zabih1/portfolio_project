@@ -12,7 +12,7 @@
                 <h1 class="display-5 fw-bold mb-3 fade-in-up">{{ profile.name }}</h1>
                 <p class="lead mb-4 fade-in-up">{{ profile.title }}</p>
                 <p class="mb-5 fade-in-up text-light-emphasis">
-                    {{ profile.short_bio|default:"Passionate about creating exceptional digital experiences that combine aesthetics with functionality." }}
+                    {{ profile.short_bio|default:"Passionate AI Engineer who loves building smart and easy-to-use technology. Focused on creating AI solutions that work well and look great.." }}
                 </p>
 
                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start mb-5 fade-in-up">
@@ -28,27 +28,29 @@
             <div class="hero-media fade-in">
                 <div class="video-wrapper">
                     <div class="ratio ratio-16x9">
-                        <iframe src="https://www.youtube.com/embed/3TGqlQxpuU0?si=7-S636G__nTAjZCo"
-                            class="video-embed" title="YouTube video player" frameborder="0"
-                            loading="lazy"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                        </iframe>
+                        {% if profile.intro_video %}
+                            <video class="video-embed" controls>
+                                <source src="{{ profile.intro_video.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+
+                        {% endif %}
                     </div>
                 </div>
+                
 
                 <div class="tech-stack mt-4">
-                    <div class="d-flex flex-wrap gap-3 justify-content-center">
-                        {% for skill in profile.top_skills|slice:":5" %}
+                    {% for skill in profile.top_skills.all|slice:":5" %}
                         <span class="badge bg-dark-subtle text-dark-emphasis p-2">{{ skill.name }}</span>
-                        {% empty %}
-                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">HTML</span>
-                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">CSS</span>
-                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">JavaScript</span>
+                    {% empty %}
+                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">Machine Learning</span>
+                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">LLM</span>
+                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">Generative Ai</span>
                         <span class="badge bg-dark-subtle text-dark-emphasis p-2">Python</span>
                         <span class="badge bg-dark-subtle text-dark-emphasis p-2">Django</span>
-                        {% endfor %}
-                    </div>
+                    {% endfor %}
+
+                
                 </div>
             </div>
         </div>

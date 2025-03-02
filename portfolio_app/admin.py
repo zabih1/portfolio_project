@@ -1,13 +1,15 @@
 from django.contrib import admin
+from django.contrib import admin
 from .models import Profile, Skill, Technology, Education, Experience, Project, Message
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('name', 'title', 'email', 'location')
-    fields = ('name', 'title', 'profile_image', 'logo_image', 'email', 'phone', 
-              'location', 'bio', 'experience_years', 'cv_file', 
-              'linkedin', 'github', 'twitter')  # Include cv_file
-
+    fields = (
+        'name', 'title', 'profile_image', 'logo_image', 'email', 'phone', 
+        'location', 'bio', 'short_bio', 'experience_years', 'cv_file', 
+        'intro_video', 'linkedin', 'github', 'twitter', 'top_skills'
+    )
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):

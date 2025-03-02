@@ -9,15 +9,20 @@ class Profile(models.Model):
     phone = models.CharField(max_length=20)
     location = models.CharField(max_length=100)
     bio = models.TextField()
+    short_bio = models.TextField(blank=True, help_text="A short version of your bio for the homepage")
     experience_years = models.IntegerField(default=0)
-    cv_file = models.FileField(upload_to='cv_files/', blank=True, null=True)  # Add this field
-    
+    cv_file = models.FileField(upload_to='cv_files/', blank=True, null=True)
+    intro_video = models.FileField(upload_to='videos/', blank=True, null=True)
     linkedin = models.URLField(blank=True)
     github = models.URLField(blank=True)
     twitter = models.URLField(blank=True)
+    
+    # New dynamic field for top skills
+    top_skills = models.ManyToManyField('Skill', related_name='profiles', blank=True)
 
     def __str__(self):
         return self.name
+
 
 
 class Skill(models.Model):
