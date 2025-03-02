@@ -104,25 +104,56 @@
     <!-- Custom JavaScript -->
     {% block extra_js %}
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const sidebar = document.getElementById('sidebarMenu');
-        const backdrop = document.createElement('div');
-        backdrop.className = 'sidebar-backdrop';
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebarMenu');
+            const body = document.body;
+            let backdrop;
+            
+            // Create backdrop element once
+            function createBackdrop() {
+                backdrop = document.createElement('div');
+                backdrop.className = 'sidebar-backdrop';
+                backdrop.style.position = 'fixed';
+                backdrop.style.top = '0';
+                backdrop.style.left = '0';
+                backdrop.style.width = '100vw';
+                backdrop.style.height = '100vh';
+                backdrop.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+                backdrop.style.zIndex = '1040'; // Just below sidebar (1050)
+                backdrop.style.display = 'none';
+                body.appendChild(backdrop);
+                
+                // Add click listener to backdrop
+                backdrop.addEventListener('click', function() {
+                    const bsCollapse = bootstrap.Collapse.getInstance(sidebar);
+                    if (bsCollapse) {
+                        bsCollapse.hide();
+                    }
+                });
+            }
+            
+            createBackdrop();
+            
+            // Add event listeners for sidebar
+            sidebar.addEventListener('show.bs.collapse', function() {
+                backdrop.style.display = 'block';
+                body.style.overflow = 'hidden';
+            });
         
-        sidebar.addEventListener('show.bs.collapse', function() {
-            document.body.appendChild(backdrop);
-            document.body.style.overflow = 'hidden';
+            sidebar.addEventListener('hide.bs.collapse', function() {
+                backdrop.style.display = 'none';
+                body.style.overflow = '';
+            });
+            
+            // Handle sidebar transition properly
+            sidebar.addEventListener('shown.bs.collapse', function() {
+                sidebar.classList.add('show-complete');
+            });
+            
+            sidebar.addEventListener('hidden.bs.collapse', function() {
+                sidebar.classList.remove('show-complete');
+            });
         });
-
-        sidebar.addEventListener('hide.bs.collapse', function() {
-            document.body.removeChild(backdrop);
-            document.body.style.overflow = '';
-        });
-
-        backdrop.addEventListener('click', function() {
-            bootstrap.Collapse.getInstance(sidebar).hide();
-        });
-    });
     </script>
     {% endblock %}
 </body>
