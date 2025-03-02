@@ -12,10 +12,10 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body data-bs-spy="scroll" data-bs-target=".sidebar" data-bs-offset="100">
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid p-0">
+        <div class="row g-0">
             <!-- Sidebar Navigation -->
-            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar vh-100 position-fixed collapse" id="sidebarMenu">
+            <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse" id="sidebarMenu">
                 <div class="sidebar-close d-md-none">
                     <button class="btn-close btn-close-white" 
                             type="button" 
@@ -82,7 +82,7 @@
             </nav>
 
             <!-- Main Content Area -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-md-9 col-lg-10 px-0">
                 <button class="navbar-toggler mobile-menu-toggle" type="button" 
                         data-bs-toggle="collapse" 
                         data-bs-target="#sidebarMenu" 

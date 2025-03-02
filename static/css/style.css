@@ -13,6 +13,9 @@ body {
     font-family: 'Poppins', sans-serif;
     color: var(--dark-color);
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
 }
 
 a {
@@ -22,13 +25,18 @@ a {
 
 /* ================= SIDEBAR STYLES ================= */
 .sidebar {
-    height: 100vh; /* Full viewport height */
-    min-height: 100vh; /* Ensures it always fills the height */
+    min-height: 100vh;
+    height: 100%; /* Changed from 100vh to ensure full content height */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-y: auto; /* Allows scrolling if content exceeds height */
-    background-color: var(--dark-color); /* Ensures no white space */
+    background-color: var(--dark-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 220px;
+    z-index: 1050;
 }
-
 
 .sidebar .nav-link {
     padding: 0.75rem 1rem;
@@ -86,23 +94,6 @@ a {
     background-color: #0d6efd !important;
     transform: translateY(-3px) !important;
 }
-
-/* Make sure these styles override any page-specific styles */
-@media (max-width: 768px) {
-    .sidebar .social-icons {
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-        justify-content: center !important;
-    }
-    
-    /* This ensures that the social icons container stays horizontal */
-    .sidebar .d-flex.justify-content-center {
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;
-    }
-}
-
-
 
 /* ================= MOBILE STYLES FOR CONTACT PAGE ================= */
 @media (max-width: 768px) {
@@ -162,7 +153,7 @@ a {
         top: 0;
         left: 0;
         width: 250px;
-        height: 100vh;
+        height: 100%;
         z-index: 1050;
         transform: translateX(-100%);
         transition: transform 0.3s ease;
@@ -175,7 +166,7 @@ a {
     
     /* Fix for BS5 collapse animation */
     .sidebar.collapsing {
-        height: 100vh !important;
+        height: 100% !important;
         transition: transform 0.3s ease !important;
         transform: translateX(-100%);
     }
@@ -183,10 +174,10 @@ a {
     /* Main content shifting when sidebar is open */
     main {
         transition: margin-left 0.3s ease;
+        width: 100%;
+        padding-left: 0;
     }
 }
-
-
 
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
@@ -201,7 +192,6 @@ a {
     z-index: 1030;
     padding: 0.5rem;
     background: white;
-
     border-radius: 4px;
     color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -220,8 +210,6 @@ a {
     width: 1.5em;
     height: 1.5em;
 }
-
-
 
 /* Custom backdrop style */
 .sidebar-backdrop {
@@ -247,54 +235,92 @@ a {
     transform: rotate(90deg);
 }
 
-/* Hide mobile toggle on desktop */
+/* ================= FIXED SIDEBAR FOR DESKTOP ================= */
 @media (min-width: 769px) {
+    /* Sidebar fixed to the left */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 220px;
+        min-height: 100vh;
+        height: 100%;
+        overflow-y: auto;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1050;
+    }
+    
+    /* Hide mobile toggle on desktop */
     .mobile-menu-toggle {
         display: none !important;
     }
     
-    .sidebar {
-        transform: none !important;
-        position: relative !important;
-        height: auto !important;
-    }
-    
     .sidebar.collapse {
         display: block !important;
-        height: auto !important;
     }
     
     .sidebar-close {
         display: none !important;
     }
-}
-
-/* ================= FIXED SIDEBAR FOR DESKTOP ================= */
-@media (min-width: 769px) {
-    .sidebar {
-        position: fixed !important;
-        top: 0;
-        left: 0;
-        height: 100vh !important;
-        width: 250px; /* Adjust width as needed */
-        overflow-y: auto;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-    }
 
     /* Adjust main content area to prevent overlap */
     main {
-        margin-left: 250px;
+        margin-left: 220px;
+        width: calc(100% - 220px);
+        min-height: 100vh;
+    }
+    
+    /* Fix row and container widths */
+    .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .row {
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 
-@media (min-width: 769px) {
-    .sidebar {
-        width: 220px; /* Decreased from 250px */
-    }
+/* Fix for hero section to occupy full width */
+#home.hero-section {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
+/* Ensure content fills entire screen */
+.container-fluid {
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.row {
+    margin: 0;
+    width: 100%;
+}
+
+/* Ensure main covers full height */
+main {
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* Remove horizontal scrollbar */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Additional fix for mobile view */
+@media (max-width: 768px) {
     main {
-        margin-left: 220px; /* Adjusted to match sidebar width */
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    #home.hero-section {
+        padding: 4rem 0;
     }
 }
-
