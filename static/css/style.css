@@ -275,3 +275,33 @@ a {
         display: none !important;
     }
 }
+
+/* ================= FIXED SIDEBAR FOR DESKTOP ================= */
+@media (min-width: 769px) {
+    .sidebar {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        height: 100vh !important;
+        width: 250px; /* Adjust width as needed */
+        overflow-y: auto;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    /* Adjust main content area to prevent overlap */
+    main {
+        margin-left: 250px;
+    }
+}
+
+@media (min-width: 769px) {
+    .sidebar {
+        width: 220px; /* Decreased from 250px */
+    }
+
+    main {
+        margin-left: 220px; /* Adjusted to match sidebar width */
+    }
+}
+

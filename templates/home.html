@@ -10,17 +10,19 @@
             <div class="hero-text text-center text-lg-start mx-auto">
                 <span class="badge bg-primary mb-3 fade-in-up">Portfolio</span>
                 <h1 class="display-5 fw-bold mb-3 fade-in-up">{{ profile.name }}</h1>
-                <p class="lead mb-4 fade-in-up">{{ profile.title }}</p>
-                <p class="mb-5 fade-in-up text-light-emphasis">
-                    {{ profile.short_bio|default:"Passionate AI Engineer who loves building smart and easy-to-use technology. Focused on creating AI solutions that work well and look great.." }}
+                <p class="lead mb-4 fade-in-up position-highlight">
+                    <span class="position-text">{{ profile.title }}</span>
+                </p>
+                <p class="mb-5 fade-in-up bio-text">
+                    {{ profile.short_bio|default:"Passionate AI Engineer who loves building smart and easy-to-use technology. Focused on creating AI solutions that work well and look great." }}
                 </p>
 
                 <div class="d-flex gap-3 justify-content-center justify-content-lg-start mb-5 fade-in-up">
                     <a href="{% url 'contact' %}" class="btn btn-primary px-4 py-2" aria-label="Hire Me">
-                        Hire Me <i class="bi bi-arrow-right ms-2"></i>
+                        <span class="btn-text">Hire Me</span> <i class="bi bi-arrow-right ms-2"></i>
                     </a>
                     <a href="{% url 'projects' %}" class="btn btn-outline-light px-4 py-2" aria-label="My Work">
-                        My Work <i class="bi bi-code-square ms-2"></i>
+                        <span class="btn-text">My Work</span> <i class="bi bi-code-square ms-2"></i>
                     </a>
                 </div>
             </div>
@@ -33,24 +35,20 @@
                                 <source src="{{ profile.intro_video.url }}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
-
                         {% endif %}
                     </div>
                 </div>
                 
-
                 <div class="tech-stack mt-4">
                     {% for skill in profile.top_skills.all|slice:":5" %}
-                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">{{ skill.name }}</span>
+                        <span class="badge bg-dark-subtle text-dark-emphasis p-2 m-1">{{ skill.name }}</span>
                     {% empty %}
-                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">Machine Learning</span>
-                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">LLM</span>
-                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">Generative Ai</span>
-                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">Python</span>
-                        <span class="badge bg-dark-subtle text-dark-emphasis p-2">Django</span>
+                        <span class="badge bg-dark-subtle text-dark-emphasis p-2 m-1">Machine Learning</span>
+                        <span class="badge bg-dark-subtle text-dark-emphasis p-2 m-1">LLM</span>
+                        <span class="badge bg-dark-subtle text-dark-emphasis p-2 m-1">Generative AI</span>
+                        <span class="badge bg-dark-subtle text-dark-emphasis p-2 m-1">Python</span>
+                        <span class="badge bg-dark-subtle text-dark-emphasis p-2 m-1">Django</span>
                     {% endfor %}
-
-                
                 </div>
             </div>
         </div>
@@ -68,7 +66,7 @@
         align-items: center;
         color: white;
         overflow: hidden;
-        background: linear-gradient(135deg, rgba(60, 103, 167, 0.15), rgba(33, 37, 41, 0.95)), 
+        background: linear-gradient(135deg, rgba(78, 115, 223, 0.15), rgba(54, 185, 204, 0.25)), 
                     url('{% static "images/background.jpg" %}') no-repeat center center/cover;
         padding: 6rem 0 4rem;
     }
@@ -107,6 +105,19 @@
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
     }
 
+    
+    .position-text {
+        background: linear-gradient(to bottom, transparent 90%, rgb(54, 148, 255) 10%);
+    }
+
+    /* Bio text styling */
+    .bio-text {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        opacity: 0.9;
+        max-width: 550px;
+    }
+
     /* ========== VIDEO STYLES ========== */
     .video-wrapper {
         border-radius: 1rem;
@@ -131,9 +142,24 @@
         font-weight: 500;
     }
 
+    .btn .btn-text {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
     .btn-primary {
         background: linear-gradient(45deg, #4e73df, #36b9cc);
         border-color: transparent;
+    }
+
+    .btn-outline-light {
+        border-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-outline-light:hover {
+        background-color: #36b9cc;
+        border-color: #36b9cc;
+        color: white;
     }
 
     .btn:hover {
@@ -144,6 +170,7 @@
     /* ========== TECH STACK ========== */
     .tech-stack {
         text-align: center;
+        margin-top: 2rem;
     }
 
     .tech-stack .badge {
@@ -152,11 +179,46 @@
         border-radius: 1rem;
         padding: 0.5rem 1rem;
         transition: all 0.3s ease;
+        margin: 0.25rem;
+        display: inline-block;
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .tech-stack .badge:hover {
         transform: translateY(-3px);
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        background-color: rgba(54, 185, 204, 0.2);
+    }
+
+    /* ========== ANIMATIONS ========== */
+    .fade-in-up {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    .fade-in {
+        animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 
     /* ========== RESPONSIVE DESIGN ========== */
@@ -173,6 +235,11 @@
         }
 
         .video-wrapper {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .bio-text {
             max-width: 100%;
             margin: 0 auto;
         }
